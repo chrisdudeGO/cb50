@@ -1,14 +1,13 @@
 import Database from 'better-sqlite3';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const dbPath = join(__dirname, '..', '..', 'data', 'guests.db');
+// Database path: use DB_PATH env var, or default to ./data/guests.db
+const dbPath = process.env.DB_PATH || join(process.cwd(), 'data', 'guests.db');
 
 // Ensure data directory exists
 import { mkdirSync } from 'fs';
-mkdirSync(join(__dirname, '..', '..', 'data'), { recursive: true });
+import { dirname } from 'path';
+mkdirSync(dirname(dbPath), { recursive: true });
 
 const db = new Database(dbPath);
 
