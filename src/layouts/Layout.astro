@@ -30,25 +30,10 @@ const { title } = Astro.props;
   <body class="overflow-x-hidden bg-[#f4f1ec] text-[#1a1d2e] font-['Inter',sans-serif]">
     <slot />
     <script>
-      import Lenis from 'lenis';
       import { gsap } from 'gsap';
       import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
       gsap.registerPlugin(ScrollTrigger);
-
-      // Smooth scroll
-      const lenis = new Lenis({
-        duration: 1.0,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-      });
-
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => lenis.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0);
-
-      // Expose lenis globally for snap control
-      (window as any).__lenis = lenis;
 
       // ---- Fade-in elements ----
       document.querySelectorAll<HTMLElement>('.fade-up').forEach((el) => {
@@ -454,10 +439,10 @@ const { title } = Astro.props;
             },
           });
 
-          // ---- Lenis-driven snap: settle onto nearest card when scrolling stops ----
+          // ---- Snap: settle onto nearest card when scrolling stops ----
           let snapTimer: ReturnType<typeof setTimeout>;
           let isSnapping = false;
-          let snapEnabled = false; // Disable snap for the initial scroll into the timeline
+          let snapEnabled = false;
 
           function snapToNearestCard() {
             if (!snapEnabled) return;
@@ -468,10 +453,8 @@ const { title } = Astro.props;
             const snapPoints = computeSnapPoints();
             const current = st.progress;
 
-            // Enable snap only after scrolling past the intro card
             if (!snapEnabled) return;
 
-            // Find nearest snap point
             let nearest = snapPoints[0];
             let minDist = Math.abs(current - nearest);
             for (const p of snapPoints) {
@@ -479,16 +462,12 @@ const { title } = Astro.props;
               if (dist < minDist) { minDist = dist; nearest = p; }
             }
 
-            if (minDist < 0.003) return; // Already close enough
+            if (minDist < 0.003) return;
 
-            // Scroll to the target position using Lenis for smooth animation
             const targetScroll = st.start + nearest * (st.end - st.start);
             isSnapping = true;
-            lenis.scrollTo(targetScroll, {
-              duration: 1.0,
-              easing: (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
-              onComplete: () => { isSnapping = false; },
-            });
+            window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+            setTimeout(() => { isSnapping = false; }, 800);
           }
 
           function scheduleSnap() {
