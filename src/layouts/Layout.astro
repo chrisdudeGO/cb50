@@ -38,9 +38,10 @@ const { title } = Astro.props;
 
       // Smooth scroll
       const lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.0,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
+        lerp: 0.1,
       });
 
       lenis.on('scroll', ScrollTrigger.update);
@@ -343,7 +344,7 @@ const { title } = Astro.props;
           }
 
           // ---- Scroll-linked horizontal movement ----
-          // scrub: true = instant response, Lenis already provides the smoothing
+          // scrub: 0.3 adds slight smoothing to prevent micro-jank from raw scroll events
           gsap.to(timelineTrack, {
             x: () => -getMaxScroll(),
             ease: 'none',
@@ -351,16 +352,16 @@ const { title } = Astro.props;
               trigger: timetable,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: true,
+              scrub: 0.3,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
                 const progress = self.progress;
                 const maxScroll = getMaxScroll();
                 const scrollPos = progress * maxScroll;
 
-                // Progress bar
+                // Progress bar — direct DOM, no GSAP overhead
                 if (progressBar) {
-                  progressBar.style.width = `${progress * 100}%`;
+                  progressBar.style.width = `${(progress * 100).toFixed(1)}%`;
                 }
 
                 // Active card: whose center is closest to viewport center
@@ -515,16 +516,21 @@ const { title } = Astro.props;
 
           // ---- Stop activation ----
           let currentStop = -1;
+          let flyToTimeout: ReturnType<typeof setTimeout>;
 
           function activateStop(index: number) {
             if (index === currentStop) return;
             currentStop = index;
 
-            const stop = stops[index];
-            map.flyTo([stop.lat, stop.lng], stop.zoom, {
-              duration: 1.2,
-              easeLinearity: 0.25,
-            });
+            // Debounce map flyTo — prevents rapid successive calls during fast scroll
+            clearTimeout(flyToTimeout);
+            flyToTimeout = setTimeout(() => {
+              const stop = stops[index];
+              map.flyTo([stop.lat, stop.lng], stop.zoom, {
+                duration: 1.0,
+                easeLinearity: 0.25,
+              });
+            }, 80);
 
 
             // Progressive route reveal
@@ -563,12 +569,9 @@ const { title } = Astro.props;
               }
             });
 
-            // Update card opacity
+            // Update card opacity — use CSS directly instead of GSAP tweens
             timelineStops.forEach((el, i) => {
-              gsap.to(el, {
-                opacity: i === index ? 1 : 0.5,
-                duration: 0.4,
-              });
+              (el as HTMLElement).style.opacity = i === index ? '1' : '0.5';
             });
           }
 

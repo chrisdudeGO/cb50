@@ -8,7 +8,7 @@ import '../styles/global.css';
   <!-- ==================== HERO ==================== -->
   <section class="section min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
     <!-- Hero background photo — super saturated / verfremdet -->
-    <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="filter: saturate(2.5) contrast(1.15) brightness(1.05) blur(1.5px); transform: scale(1.1) translateZ(0); will-change: transform;" loading="eager" />
+    <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" style="filter: saturate(2.5) contrast(1.15) brightness(1.05) blur(1.5px); transform: scale(1.1) translateZ(0); will-change: transform; contain: strict;" loading="eager" />
     <!-- Color tint glow -->
     <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 40%, rgba(194,112,62,0.2) 0%, rgba(120,60,180,0.08) 50%, transparent 80%); mix-blend-mode: overlay;"></div>
     <!-- Subtle vignette -->
@@ -82,6 +82,61 @@ import '../styles/global.css';
             19. September 2026
           </p>
           <p class="text-sm text-[#8b8fa3]">Ab 15:00 Uhr — Treffpunkt Strandperle</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROGRAMM-ÜBERSICHT ==================== -->
+  <section class="section py-24 md:py-32">
+    <div class="max-w-3xl mx-auto fade-up">
+      <div class="accent-line mb-6"></div>
+      <p class="mono-label mb-3">Auf einen Blick</p>
+      <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e] mb-12">Das Programm</h2>
+
+      <div class="space-y-0">
+        <!-- 15:00 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">15:00</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Strandperle</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Ankommen &amp; Umtrunk am Elbstrand</p>
+            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Övelgönne 60, 22605 Hamburg</p>
+          </div>
+        </div>
+        <!-- 16:45 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">16:45</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Spaziergang zum Anleger</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Am Elbstrand entlang zum Anleger Övelgönne</p>
+          </div>
+        </div>
+        <!-- 17:00 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">17:00</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Barkassenfahrt</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Mit der Barkasse über die Elbe Richtung Landungsbrücken</p>
+            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
+          </div>
+        </div>
+        <!-- 18:30 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">18:30</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Landungsbrücken</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Zu Fuß durch die Hafengegend ins Portugiesenviertel</p>
+          </div>
+        </div>
+        <!-- 19:00 -->
+        <div class="flex gap-6 items-start py-6">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">19:00</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Küchenparty</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Gemeinsam kochen, essen &amp; feiern bei La Cocina</p>
+            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">La Cocina, Ludwig-Erhard-Straße 37</p>
+          </div>
         </div>
       </div>
     </div>
@@ -305,61 +360,6 @@ import '../styles/global.css';
         <!-- Progress bar -->
         <div class="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-[#1a1d2e]/[0.06]">
           <div id="timeline-progress" class="h-full bg-[#c2703e]/50 w-0 transition-none"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== PROGRAMM-ÜBERSICHT ==================== -->
-  <section class="section py-24 md:py-32">
-    <div class="max-w-3xl mx-auto fade-up">
-      <div class="accent-line mb-6"></div>
-      <p class="mono-label mb-3">Auf einen Blick</p>
-      <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e] mb-12">Das Programm</h2>
-
-      <div class="space-y-0">
-        <!-- 15:00 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">15:00</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Strandperle</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Ankommen &amp; Umtrunk am Elbstrand</p>
-            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Övelgönne 60, 22605 Hamburg</p>
-          </div>
-        </div>
-        <!-- 16:45 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">16:45</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Spaziergang zum Anleger</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Am Elbstrand entlang zum Anleger Övelgönne</p>
-          </div>
-        </div>
-        <!-- 17:00 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">17:00</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Barkassenfahrt</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Mit der Barkasse über die Elbe Richtung Landungsbrücken</p>
-            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
-          </div>
-        </div>
-        <!-- 18:30 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">18:30</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Landungsbrücken</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Zu Fuß durch die Hafengegend ins Portugiesenviertel</p>
-          </div>
-        </div>
-        <!-- 19:00 -->
-        <div class="flex gap-6 items-start py-6">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">19:00</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Küchenparty</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Gemeinsam kochen, essen &amp; feiern bei La Cocina</p>
-            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">La Cocina, Ludwig-Erhard-Straße 37</p>
-          </div>
         </div>
       </div>
     </div>
