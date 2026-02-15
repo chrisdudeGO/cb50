@@ -6,26 +6,31 @@ import '../styles/global.css';
 <Layout title="CB50">
 
   <!-- ==================== HERO ==================== -->
-  <section class="section min-h-screen flex flex-col justify-center items-center relative">
-    <!-- Subtle gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#f4f1ec] via-[#ebe8e3] to-[#f4f1ec]"></div>
+  <section class="section min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
+    <!-- Hero background photo — super saturated / verfremdet -->
+    <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover scale-110" style="filter: saturate(2.5) contrast(1.15) brightness(1.05) blur(1.5px);" loading="eager" />
+    <!-- Color tint glow -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 50% 40%, rgba(194,112,62,0.2) 0%, rgba(120,60,180,0.08) 50%, transparent 80%); mix-blend-mode: overlay;"></div>
+    <!-- Subtle vignette -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(26,29,46,0.25) 100%);"></div>
+    <!-- Bottom fade for transition -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#f4f1ec]/70"></div>
 
     <div class="relative z-10 text-center max-w-3xl mx-auto space-y-10">
 
-      <!-- CB50 Mark -->
+      <!-- Title -->
       <div class="space-y-4">
-        <p class="mono-label">19 — 09 — 2026</p>
-        <h1 class="text-[8rem] md:text-[12rem] lg:text-[14rem] font-['Space_Grotesk',sans-serif] font-bold leading-none tracking-tighter text-[#1a1d2e]/[0.06]
-          select-none" aria-hidden="true">
-          CB50
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-['Space_Grotesk',sans-serif] font-bold leading-tight tracking-tight text-[#1a1d2e] inline-block">
+          <span style="background: rgba(244,241,236,0.8); padding: 4px 16px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone;">Chris wird 50</span>
         </h1>
-        <p class="text-lg md:text-xl font-light text-[#4a4d5e] -mt-6 md:-mt-10">
-          Halbes Jahrhundert. Kein Grund zur Panik.
+        <p class="text-lg md:text-xl font-light text-[#2a2d3a]">
+          <span style="background: rgba(244,241,236,0.7); padding: 2px 12px; border-radius: 3px;">Halbes Jahrhundert. Kein Grund zur Panik.</span>
         </p>
       </div>
 
       <!-- Countdown -->
-      <div id="countdown" class="flex items-center justify-center gap-4 md:gap-6">
+      <div class="flex justify-center">
+      <div id="countdown" class="inline-flex items-center justify-center gap-4 md:gap-6" style="background: rgba(244,241,236,0.75); padding: 12px 24px; border-radius: 6px;">
         <div class="flex flex-col items-center">
           <span id="cd-days" class="cd-digit">000</span>
           <span class="cd-label">Tage</span>
@@ -46,6 +51,7 @@ import '../styles/global.css';
           <span class="cd-label">Sek</span>
         </div>
       </div>
+      </div>
 
       <!-- Scroll hint -->
       <div class="pt-8">
@@ -62,27 +68,18 @@ import '../styles/global.css';
       <div class="fade-up max-w-2xl">
         <div class="accent-line mb-6"></div>
         <p class="text-2xl md:text-3xl font-light leading-relaxed text-[#2a2d3a]">
-          Ich werde 50. Klingt viel, fühlt sich gut an.
-          <br />Lass uns das feiern — mit gutem Essen, guter Musik
-          und den richtigen Leuten.
+          Ich werde 50. Lasst uns das feiern. Mit gutem Essen, guten Drinks, guter Musik und vor allem...mit euch!
         </p>
       </div>
 
-      <!-- Quick info row -->
-      <div class="stagger-group grid md:grid-cols-2 gap-4">
-        <div class="stagger-item card card-hover p-8 space-y-4">
+      <!-- Quick info -->
+      <div class="stagger-group">
+        <div class="stagger-item card card-hover p-8 space-y-4 max-w-md">
           <p class="mono-label">Wann</p>
           <p class="text-xl font-['Space_Grotesk',sans-serif] font-medium text-[#1a1d2e]">
             19. September 2026
           </p>
-          <p class="text-sm text-[#8b8fa3]">Ab 15:00 Uhr — Strandperle bis Open End</p>
-        </div>
-        <div class="stagger-item card card-hover p-8 space-y-4">
-          <p class="mono-label">Dresscode</p>
-          <p class="text-xl font-['Space_Grotesk',sans-serif] font-medium text-[#1a1d2e]">
-            Komm wie du bist
-          </p>
-          <p class="text-sm text-[#8b8fa3]">Hauptsache du kommst</p>
+          <p class="text-sm text-[#8b8fa3]">Ab 15:00 Uhr — Treffpunkt Strandperle</p>
         </div>
       </div>
     </div>
@@ -104,26 +101,27 @@ import '../styles/global.css';
 
           <!-- Intro -->
           <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="0">
-            <img src="/photos/portugiesenviertel.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.12]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/80 to-[#f4f1ec]/60"></div>
+            <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover scale-105" style="filter: saturate(2.5) contrast(1.15) brightness(1.05);" loading="lazy" />
+            <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(26,29,46,0.2) 100%);"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec]/70 via-[#f4f1ec]/30 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 timeline-card max-w-md space-y-4">
               <div class="accent-line mb-2"></div>
-              <p class="mono-label">Der Tag</p>
+              <p class="mono-label"><span style="background: rgba(244,241,236,0.75); padding: 2px 8px; border-radius: 3px;">Der Tag</span></p>
               <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e] leading-snug">
-                Von der Elbe durch den Hafen in die Küche.
+                <span style="background: rgba(244,241,236,0.8); padding: 2px 10px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone;">Von der Elbe durch den Hafen in die Küche.</span>
               </h3>
               <p class="text-sm text-[#4a4d5e] leading-relaxed">
-                Ein Nachmittag am Wasser, eine Fahrt über die Elbe und ein gemeinsamer Abend in der Küche. Fünf Stationen quer durch Hamburg.
+                <span style="background: rgba(244,241,236,0.7); padding: 2px 8px; border-radius: 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone;">Ein Nachmittag am Wasser, eine Fahrt über die Elbe und ein gemeinsamer Abend in der Küche. Fünf Stationen quer durch Hamburg.</span>
               </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-3">19. September 2026 — Hamburg</p>
+              <p class="font-mono text-[11px] text-[#8b8fa3] mt-3"><span style="background: rgba(244,241,236,0.7); padding: 2px 8px; border-radius: 3px;">19. September 2026 — Hamburg</span></p>
             </div>
             <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
 
           <!-- 15:00 Strandperle -->
           <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="1">
-            <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.15]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/80 to-[#f4f1ec]/60"></div>
+            <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c2703e] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
@@ -144,9 +142,9 @@ import '../styles/global.css';
               <img
                 src="/photos/elbstrand-strandperle.jpg"
                 alt="Elbstrand bei der Strandperle"
-                class="w-full h-full object-cover opacity-60"
+                class="w-full h-full object-cover opacity-90"
               />
-              <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/50 to-[#f4f1ec]"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/20 to-[#f4f1ec]/60"></div>
             </div>
             <div class="relative z-10 px-8 md:px-16 max-w-md space-y-3">
               <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Strandperle</p>
@@ -159,8 +157,8 @@ import '../styles/global.css';
 
           <!-- Walk to pier -->
           <div class="timeline-stop timeline-walk flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="3" id="walk-to-pier">
-            <img src="/photos/bild-hintergrundbild-maritimes-erbe.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.12]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/80 to-[#f4f1ec]/60"></div>
+            <img src="/photos/bild-hintergrundbild-maritimes-erbe.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.35]" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
@@ -181,9 +179,9 @@ import '../styles/global.css';
               <img
                 src="/photos/Museumshafen-Oevelgoenne-Hamburg.jfif"
                 alt="Museumshafen Övelgönne"
-                class="w-full h-full object-cover opacity-60"
+                class="w-full h-full object-cover opacity-90"
               />
-              <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/50 to-[#f4f1ec]"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/20 to-[#f4f1ec]/60"></div>
             </div>
             <div class="relative z-10 px-8 md:px-16 max-w-md space-y-3">
               <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Museumshafen</p>
@@ -196,8 +194,8 @@ import '../styles/global.css';
 
           <!-- 17:00 Barkasse -->
           <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="5">
-            <img src="/photos/an-den-landungsbrucken.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.15]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/80 to-[#f4f1ec]/60"></div>
+            <img src="/photos/an-den-landungsbrucken.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
@@ -212,15 +210,15 @@ import '../styles/global.css';
             <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
 
-          <!-- Boat photo 1: Elbe from the water -->
+          <!-- Boat photo 1: Barkasse -->
           <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center justify-center relative overflow-hidden" data-stop="6">
             <img
               src="/photos/barkasse.jpg"
               alt="Barkassenfahrt auf der Elbe"
-              class="absolute inset-0 w-full h-full object-cover opacity-30"
+              class="absolute inset-0 w-full h-full object-cover opacity-70"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
               <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Auf der Elbe</p>
               <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
@@ -235,10 +233,10 @@ import '../styles/global.css';
             <img
               src="/photos/barkasse1.jpg"
               alt="Hamburger Hafen von der Barkasse"
-              class="absolute inset-0 w-full h-full object-cover opacity-30"
+              class="absolute inset-0 w-full h-full object-cover opacity-70"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
               <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Hamburger Hafen</p>
               <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
@@ -250,8 +248,8 @@ import '../styles/global.css';
 
           <!-- 18:30 Landungsbrücken -->
           <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="8">
-            <img src="/photos/landungsbr%C3%BCcken.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.15]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/80 to-[#f4f1ec]/60"></div>
+            <img src="/photos/landungsbr%C3%BCcken.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
@@ -271,10 +269,10 @@ import '../styles/global.css';
             <img
               src="/photos/tausende-menschen-im-portugiesenviertel.webp"
               alt="Portugiesenviertel Hamburg"
-              class="absolute inset-0 w-full h-full object-cover opacity-30"
+              class="absolute inset-0 w-full h-full object-cover opacity-70"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
               <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Portugiesenviertel</p>
               <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
@@ -286,8 +284,8 @@ import '../styles/global.css';
 
           <!-- 19:00 La Cocina -->
           <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="10">
-            <img src="/photos/LaCocina-Hamburg-11-683x1024-1.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.15]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/80 to-[#f4f1ec]/60"></div>
+            <img src="/photos/LaCocina-Hamburg-11-683x1024-1.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
@@ -310,91 +308,55 @@ import '../styles/global.css';
     </div>
   </section>
 
-  <!-- ==================== PLAYLISTS ==================== -->
+  <!-- ==================== PROGRAMM-ÜBERSICHT ==================== -->
   <section class="section py-24 md:py-32">
-    <div class="max-w-3xl mx-auto space-y-12">
-      <div class="fade-up">
-        <div class="accent-line mb-6"></div>
-        <p class="mono-label mb-3">Playlists</p>
-        <p class="text-xl font-light text-[#4a4d5e]">
-          Bau mit am Soundtrack des Abends.
-          <br />Füg deine Tracks zu den kollaborativen Playlists hinzu.
-        </p>
-      </div>
+    <div class="max-w-3xl mx-auto fade-up">
+      <div class="accent-line mb-6"></div>
+      <p class="mono-label mb-3">Auf einen Blick</p>
+      <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e] mb-12">Das Programm</h2>
 
-      <!-- Playlist 1: Boat, Cooking & Dinner -->
-      <div class="fade-up space-y-3">
-        <div>
-          <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#2a2d3a]">Barkasse, Kochen & Essen</h3>
-          <p class="text-xs text-[#8b8fa3] mt-1">Füg Tracks hinzu, die zum Kochen, Essen und Zusammensein passen — Chill, Soul, Jazz, Bossa, whatever feels right.</p>
-        </div>
-        <div class="card p-4">
-          <iframe
-            src="https://open.spotify.com/embed/playlist/5NrAL1envOg6jB4XX7R41y?utm_source=generator&theme=0"
-            width="100%" height="352" frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            style="border-radius: 12px;"
-          ></iframe>
-        </div>
-      </div>
-
-      <!-- Playlist 2: Party -->
-      <div class="fade-up space-y-3">
-        <div>
-          <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#2a2d3a]">Danach: Party</h3>
-          <p class="text-xs text-[#8b8fa3] mt-1">Die Küche wird zur Tanzfläche. Pack rein, was Beine bewegt — Techno, House, Elektronik, Disco, alles erlaubt.</p>
-        </div>
-        <div class="card p-4">
-          <iframe
-            src="https://open.spotify.com/embed/playlist/2xvNWJWODRYShVwJrthghu?utm_source=generator&theme=0"
-            width="100%" height="352" frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-            style="border-radius: 12px;"
-          ></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== GALLERY ==================== -->
-  <section class="section py-24 md:py-32">
-    <div class="max-w-5xl mx-auto space-y-8">
-      <div class="fade-up">
-        <div class="accent-line mb-6"></div>
-        <p class="mono-label">Impressionen</p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="gallery-item card">
-          <div class="w-full h-full bg-[#1a1d2e]/[0.04] flex items-center justify-center text-white/15 font-mono text-xs">
-            Foto
+      <div class="space-y-0">
+        <!-- 15:00 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">15:00</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Strandperle</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Ankommen &amp; Umtrunk am Elbstrand</p>
+            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Övelgönne 60, 22605 Hamburg</p>
           </div>
         </div>
-        <div class="gallery-item card">
-          <div class="w-full h-full bg-[#1a1d2e]/[0.04] flex items-center justify-center text-white/15 font-mono text-xs">
-            Foto
+        <!-- 16:45 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">16:45</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Spaziergang zum Anleger</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Am Elbstrand entlang zum Anleger Övelgönne</p>
           </div>
         </div>
-        <div class="gallery-item card">
-          <div class="w-full h-full bg-[#1a1d2e]/[0.04] flex items-center justify-center text-white/15 font-mono text-xs">
-            Foto
+        <!-- 17:00 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">17:00</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Barkassenfahrt</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Mit der Barkasse über die Elbe Richtung Landungsbrücken</p>
+            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
           </div>
         </div>
-        <div class="gallery-item card">
-          <div class="w-full h-full bg-[#1a1d2e]/[0.04] flex items-center justify-center text-white/15 font-mono text-xs">
-            Foto
+        <!-- 18:30 -->
+        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">18:30</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Landungsbrücken</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Zu Fuß durch die Hafengegend ins Portugiesenviertel</p>
           </div>
         </div>
-        <div class="gallery-item card md:col-span-2">
-          <div class="w-full h-full bg-[#1a1d2e]/[0.04] flex items-center justify-center text-white/15 font-mono text-xs">
-            Foto
-          </div>
-        </div>
-        <div class="gallery-item card md:col-span-2">
-          <div class="w-full h-full bg-[#1a1d2e]/[0.04] flex items-center justify-center text-white/15 font-mono text-xs">
-            Foto
+        <!-- 19:00 -->
+        <div class="flex gap-6 items-start py-6">
+          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">19:00</p>
+          <div>
+            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Küchenparty</h3>
+            <p class="text-sm text-[#4a4d5e] leading-relaxed">Gemeinsam kochen, essen &amp; feiern bei La Cocina</p>
+            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">La Cocina, Ludwig-Erhard-Straße 37</p>
           </div>
         </div>
       </div>
@@ -412,30 +374,119 @@ import '../styles/global.css';
         </p>
       </div>
 
-      <form class="fade-up space-y-4" action="#" method="POST">
-        <input type="text" name="name" placeholder="Name" required class="form-input" />
-        <input type="email" name="email" placeholder="E-Mail" required class="form-input" />
-        <select name="attending" required class="form-input">
+      <form id="rsvp-form" class="fade-up space-y-4">
+        <input type="text" name="Name" placeholder="Name" required class="form-input" />
+        <input type="email" name="Email" placeholder="E-Mail" required class="form-input" />
+        <select name="Dabei" required class="form-input">
           <option value="" disabled selected>Dabei?</option>
-          <option value="ja">Ja, bin dabei</option>
-          <option value="vielleicht">Noch unsicher</option>
-          <option value="nein">Schaffe es leider nicht</option>
+          <option value="Ja, bin dabei">Ja, bin dabei</option>
+          <option value="Noch unsicher">Noch unsicher</option>
+          <option value="Schaffe es leider nicht">Schaffe es leider nicht</option>
         </select>
-        <input type="number" name="guests" placeholder="+ Begleitung (Anzahl)" min="0" max="5" class="form-input" />
-        <textarea name="message" placeholder="Nachricht (optional)" rows="3" class="form-input"></textarea>
+        <input type="number" name="Personen" placeholder="Anzahl Personen gesamt (inkl. Dir)" min="1" max="10" class="form-input" />
+        <textarea name="Unverträglichkeiten" placeholder="Unverträglichkeiten / Ernährungswünsche (optional)" rows="2" class="form-input"></textarea>
+        <textarea name="Nachricht" placeholder="Nachricht (optional)" rows="3" class="form-input"></textarea>
         <button type="submit" class="btn-primary w-full mt-2">
           Absenden
         </button>
+        <p id="rsvp-status" class="text-center text-sm text-[#8b8fa3] hidden"></p>
       </form>
+
+      <script>
+        document.getElementById('rsvp-form')?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+          const status = document.getElementById('rsvp-status')!;
+          
+          btn.disabled = true;
+          btn.textContent = 'Wird gesendet...';
+          status.classList.add('hidden');
+
+          const data: Record<string, string> = {};
+          new FormData(form).forEach((v, k) => data[k] = v as string);
+
+          try {
+            const res = await fetch('/api/rsvp', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+            });
+            const result = await res.json();
+            if (res.ok && result.result === 'ok') {
+              status.textContent = 'Danke! Deine Antwort wurde gespeichert.';
+              status.classList.remove('hidden');
+              status.classList.remove('text-red-500');
+              status.classList.add('text-[#c2703e]');
+              form.reset();
+            } else {
+              throw new Error(result.message || 'Fehler');
+            }
+          } catch {
+            status.textContent = 'Fehler beim Senden. Bitte versuch es nochmal.';
+            status.classList.remove('hidden');
+            status.classList.add('text-red-500');
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'Absenden';
+          }
+        });
+      </script>
+    </div>
+  </section>
+
+  <!-- ==================== PLAYLISTS ==================== -->
+  <section class="section py-24 md:py-32">
+    <div class="max-w-3xl mx-auto space-y-12">
+      <div class="fade-up">
+        <div class="accent-line mb-6"></div>
+        <p class="mono-label mb-3">Playlists</p>
+        <p class="text-xl font-light text-[#4a4d5e]">
+          Bau mit am Soundtrack.
+          <br />Bitte füge Deine Tracks zu den kollaborativen Playlists hinzu.
+        </p>
+      </div>
+
+      <!-- Playlist 1: Boat, Cooking & Dinner -->
+      <div class="fade-up space-y-3">
+        <div>
+          <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#2a2d3a]">Barkasse, Kochen & Essen</h3>
+          <p class="text-xs text-[#8b8fa3] mt-1">Füg Tracks hinzu, die zum Kochen, Essen und Zusammensein passen.</p>
+        </div>
+        <div class="card p-4">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/5NrAL1envOg6jB4XX7R41y?utm_source=generator&theme=0"
+            width="100%" height="352" frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            style="border-radius: 12px;"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Playlist 2: Party -->
+      <div class="fade-up space-y-3">
+        <div>
+          <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#2a2d3a]">Danach: Party</h3>
+          <p class="text-xs text-[#8b8fa3] mt-1">Die Küche wird zur Tanzfläche. Pack rein, was Beine bewegt — alles erlaubt.</p>
+        </div>
+        <div class="card p-4">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/2xvNWJWODRYShVwJrthghu?utm_source=generator&theme=0"
+            width="100%" height="352" frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            style="border-radius: 12px;"
+          ></iframe>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="section py-16 text-center">
     <div class="w-full h-px bg-[#1a1d2e]/[0.06] mb-12"></div>
-    <p class="font-mono text-xs text-[#8b8fa3] tracking-widest uppercase">
-      CB50 — Hamburg — 19.09.2026
-    </p>
+    <a href="/admin/login" class="font-mono text-[10px] text-[#d5d2cc] tracking-widest uppercase hover:text-[#8b8fa3] transition-colors">Admin</a>
   </footer>
 
 </Layout>

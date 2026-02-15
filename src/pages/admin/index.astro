@@ -1,0 +1,895 @@
+---
+export const prerender = false;
+
+import { isAuthenticated } from '../../lib/auth';
+
+const authenticated = isAuthenticated(Astro.request.headers.get('cookie'));
+if (!authenticated) {
+  return Astro.redirect('/admin/login');
+}
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gästeverwaltung — CB50</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style is:global>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f1ec;
+      color: #1a1d2e;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .admin-header {
+      background: #1a1d2e;
+      color: #f4f1ec;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    .admin-header .subtitle {
+      font-size: 0.75rem;
+      color: #8b8fa3;
+      margin-left: 0.75rem;
+    }
+    .header-left { display: flex; align-items: center; }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(244, 241, 236, 0.2);
+      color: #f4f1ec;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-logout:hover { background: rgba(244, 241, 236, 0.1); }
+
+    /* Stats */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.25rem;
+      box-shadow: 0 1px 4px rgba(26, 29, 46, 0.06);
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #8b8fa3;
+      margin-bottom: 0.25rem;
+    }
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    .stat-value.green { color: #16a34a; }
+    .stat-value.amber { color: #d97706; }
+    .stat-value.red { color: #dc2626; }
+    .stat-value.copper { color: #c2703e; }
+
+    /* Table */
+    .table-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+    .table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .table-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    .search-input {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e5e2dc;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      background: white;
+      color: #1a1d2e;
+      outline: none;
+      width: 250px;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: #c2703e; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(26, 29, 46, 0.06);
+    }
+    th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #8b8fa3;
+      background: #faf9f7;
+      border-bottom: 1px solid #e5e2dc;
+    }
+    td {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      border-bottom: 1px solid #f0ede8;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #faf9f7; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge-ja { background: #dcfce7; color: #16a34a; }
+    .badge-unsicher { background: #fef3c7; color: #d97706; }
+    .badge-nein { background: #fef2f2; color: #dc2626; }
+
+    .cell-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .btn-edit, .btn-delete {
+      background: none;
+      border: 1px solid #e5e2dc;
+      border-radius: 6px;
+      padding: 0.35rem 0.6rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .btn-edit { color: #1a1d2e; }
+    .btn-edit:hover { background: #f0ede8; }
+    .btn-delete { color: #dc2626; }
+    .btn-delete:hover { background: #fef2f2; border-color: #fecaca; }
+
+    .text-muted { color: #8b8fa3; }
+    .text-sm { font-size: 0.8rem; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 29, 46, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 20px 60px rgba(26, 29, 46, 0.2);
+    }
+    .modal h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #8b8fa3;
+      margin-bottom: 0.35rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #e5e2dc;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      background: #faf9f7;
+      color: #1a1d2e;
+      outline: none;
+    }
+    .form-group textarea { resize: vertical; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: #c2703e; }
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+    }
+    .btn-cancel {
+      padding: 0.65rem 1.25rem;
+      background: #f4f1ec;
+      color: #1a1d2e;
+      border: 1px solid #e5e2dc;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-save {
+      padding: 0.65rem 1.25rem;
+      background: #1a1d2e;
+      color: #f4f1ec;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-cancel:hover { background: #e5e2dc; }
+    .btn-save:hover { background: #2a2d3e; }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #8b8fa3;
+    }
+    .empty-state p { font-size: 0.875rem; }
+
+    .timestamp {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #8b8fa3;
+    }
+
+    @media (max-width: 768px) {
+      .stats-bar { padding: 1rem; grid-template-columns: repeat(2, 1fr); }
+      .table-container { padding: 0 1rem 1rem; overflow-x: auto; }
+      .table-header { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+      .search-input { width: 100%; }
+      table { min-width: 700px; }
+      .planning-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Tabs */
+    .tab-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 0;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e5e2dc;
+    }
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      background: none;
+      border: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #8b8fa3;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: #1a1d2e; }
+    .tab-btn.active {
+      color: #1a1d2e;
+      border-bottom-color: #c2703e;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Planning */
+    .planning-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 2rem;
+    }
+    .planning-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .planning-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+    .progress-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .progress-bar {
+      width: 200px;
+      height: 6px;
+      background: #e5e2dc;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #c2703e;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+    .progress-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #8b8fa3;
+    }
+    .planning-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .task-section {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(26, 29, 46, 0.06);
+      overflow: hidden;
+    }
+    .task-section-header {
+      padding: 1rem 1.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #f0ede8;
+    }
+    .task-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .task-section-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: #8b8fa3;
+    }
+    .task-list {
+      list-style: none;
+      padding: 0.5rem 0;
+    }
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 1.25rem;
+      transition: background 0.1s;
+    }
+    .task-item:hover { background: #faf9f7; }
+    .task-checkbox {
+      flex-shrink: 0;
+      width: 18px;
+      min-width: 18px;
+      height: 18px;
+      min-height: 18px;
+      border: 2px solid #d5d2cc;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      transition: all 0.15s;
+      background: white;
+    }
+    .task-checkbox:hover { border-color: #c2703e; }
+    .task-checkbox.checked {
+      background: #c2703e;
+      border-color: #c2703e;
+    }
+    .task-checkbox.checked::after {
+      content: '✓';
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .task-label {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      flex: 1;
+      cursor: pointer;
+    }
+    .task-label.done {
+      text-decoration: line-through;
+      color: #8b8fa3;
+    }
+    .task-delete-btn {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      color: #d5d2cc;
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      opacity: 0;
+      transition: all 0.15s;
+    }
+    .task-item:hover .task-delete-btn { opacity: 1; }
+    .task-delete-btn:hover { color: #dc2626; background: #fef2f2; }
+
+    .add-task-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem 0.75rem;
+      border-top: 1px solid #f0ede8;
+    }
+    .add-task-input {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      border: 1px solid #e5e2dc;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      background: #faf9f7;
+      color: #1a1d2e;
+      outline: none;
+    }
+    .add-task-input:focus { border-color: #c2703e; }
+    .add-task-btn {
+      padding: 0.4rem 0.75rem;
+      background: #1a1d2e;
+      color: #f4f1ec;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .add-task-btn:hover { background: #2a2d3e; }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <div class="header-left">
+      <h1>Gästeverwaltung</h1>
+      <span class="subtitle">Chris wird 50</span>
+    </div>
+    <button class="btn-logout" id="btn-logout">Abmelden</button>
+  </header>
+
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-card">
+      <div class="stat-label">Anmeldungen</div>
+      <div class="stat-value" id="stat-total">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Zusagen</div>
+      <div class="stat-value green" id="stat-dabei">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Unsicher</div>
+      <div class="stat-value amber" id="stat-unsicher">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Absagen</div>
+      <div class="stat-value red" id="stat-absage">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Personen gesamt</div>
+      <div class="stat-value copper" id="stat-personen">—</div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="guests">Gästeliste</button>
+    <button class="tab-btn" data-tab="planning">Planung</button>
+  </div>
+
+  <!-- Tab: Gästeliste -->
+  <div class="tab-content active" id="tab-guests">
+  <div class="table-container">
+    <div class="table-header">
+      <h2>Gästeliste</h2>
+      <input type="text" class="search-input" id="search" placeholder="Suchen..." />
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Pers.</th>
+          <th>Unverträglichkeiten</th>
+          <th>Nachricht</th>
+          <th>Datum</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="guests-body">
+        <tr><td colspan="8" class="empty-state"><p>Laden...</p></td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div><!-- /tab-guests -->
+
+  <!-- Tab: Planung -->
+  <div class="tab-content" id="tab-planning">
+    <div class="planning-container">
+      <div class="planning-header">
+        <h2>Planung & Organisation</h2>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="task-progress" style="width: 0%"></div></div>
+          <span class="progress-text" id="task-progress-text">0 / 0</span>
+        </div>
+      </div>
+      <div class="planning-grid" id="planning-grid">
+        <p class="text-muted" style="padding: 2rem; text-align: center;">Laden...</p>
+      </div>
+    </div>
+  </div><!-- /tab-planning -->
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="edit-modal">
+    <div class="modal">
+      <h3>Gast bearbeiten</h3>
+      <form id="edit-form">
+        <input type="hidden" id="edit-id" />
+        <div class="form-group">
+          <label for="edit-name">Name</label>
+          <input type="text" id="edit-name" required />
+        </div>
+        <div class="form-group">
+          <label for="edit-email">Email</label>
+          <input type="email" id="edit-email" required />
+        </div>
+        <div class="form-group">
+          <label for="edit-dabei">Status</label>
+          <select id="edit-dabei">
+            <option value="Ja, bin dabei">Ja, bin dabei</option>
+            <option value="Noch unsicher">Noch unsicher</option>
+            <option value="Schaffe es leider nicht">Schaffe es leider nicht</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-personen">Anzahl Personen</label>
+          <input type="number" id="edit-personen" min="1" max="10" />
+        </div>
+        <div class="form-group">
+          <label for="edit-unvertraeglichkeiten">Unverträglichkeiten</label>
+          <textarea id="edit-unvertraeglichkeiten" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="edit-nachricht">Nachricht</label>
+          <textarea id="edit-nachricht" rows="2"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="btn-cancel-edit">Abbrechen</button>
+          <button type="submit" class="btn-save">Speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal">
+      <h3>Gast löschen</h3>
+      <p style="margin-bottom: 1rem; color: #8b8fa3;">Soll <strong id="delete-name"></strong> wirklich gelöscht werden?</p>
+      <input type="hidden" id="delete-id" />
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" id="btn-cancel-delete">Abbrechen</button>
+        <button type="button" class="btn-save" id="btn-confirm-delete" style="background: #dc2626;">Löschen</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allGuests: any[] = [];
+
+    async function loadGuests() {
+      try {
+        const res = await fetch('/api/admin/guests');
+        if (res.status === 401) {
+          window.location.href = '/admin/login';
+          return;
+        }
+        const { guests, stats } = await res.json();
+        allGuests = guests;
+
+        // Update stats
+        (document.getElementById('stat-total') as HTMLElement).textContent = stats.total;
+        (document.getElementById('stat-dabei') as HTMLElement).textContent = stats.dabei;
+        (document.getElementById('stat-unsicher') as HTMLElement).textContent = stats.unsicher;
+        (document.getElementById('stat-absage') as HTMLElement).textContent = stats.absage;
+        (document.getElementById('stat-personen') as HTMLElement).textContent = stats.personenGesamt;
+
+        renderGuests(guests);
+      } catch {
+        (document.getElementById('guests-body') as HTMLElement).innerHTML =
+          '<tr><td colspan="8" class="empty-state"><p>Fehler beim Laden</p></td></tr>';
+      }
+    }
+
+    function renderGuests(guests: any[]) {
+      const tbody = document.getElementById('guests-body') as HTMLElement;
+
+      if (!guests.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><p>Noch keine Anmeldungen</p></td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = guests.map((g: any) => {
+        const badgeClass = g.dabei === 'Ja, bin dabei' ? 'badge-ja'
+          : g.dabei === 'Noch unsicher' ? 'badge-unsicher' : 'badge-nein';
+
+        return `<tr>
+          <td><strong>${esc(g.name)}</strong></td>
+          <td class="text-sm">${esc(g.email)}</td>
+          <td><span class="badge ${badgeClass}">${esc(g.dabei)}</span></td>
+          <td class="mono">${g.personen}</td>
+          <td class="text-sm text-muted">${esc(g.unvertraeglichkeiten) || '—'}</td>
+          <td class="text-sm text-muted">${esc(g.nachricht) || '—'}</td>
+          <td class="timestamp">${formatDate(g.created_at)}</td>
+          <td>
+            <div class="cell-actions">
+              <button class="btn-edit" onclick="openEdit(${g.id})">✎</button>
+              <button class="btn-delete" onclick="openDelete(${g.id}, '${esc(g.name)}')">✕</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function esc(s: string): string {
+      if (!s) return '';
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    function formatDate(d: string): string {
+      if (!d) return '';
+      const date = new Date(d);
+      return date.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' })
+        + ' ' + date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Search
+    document.getElementById('search')?.addEventListener('input', (e) => {
+      const q = (e.target as HTMLInputElement).value.toLowerCase();
+      const filtered = allGuests.filter((g: any) =>
+        g.name.toLowerCase().includes(q) ||
+        g.email.toLowerCase().includes(q) ||
+        g.dabei.toLowerCase().includes(q) ||
+        (g.nachricht || '').toLowerCase().includes(q)
+      );
+      renderGuests(filtered);
+    });
+
+    // Edit
+    (window as any).openEdit = (id: number) => {
+      const g = allGuests.find((g: any) => g.id === id);
+      if (!g) return;
+      (document.getElementById('edit-id') as HTMLInputElement).value = id.toString();
+      (document.getElementById('edit-name') as HTMLInputElement).value = g.name;
+      (document.getElementById('edit-email') as HTMLInputElement).value = g.email;
+      (document.getElementById('edit-dabei') as HTMLSelectElement).value = g.dabei;
+      (document.getElementById('edit-personen') as HTMLInputElement).value = g.personen;
+      (document.getElementById('edit-unvertraeglichkeiten') as HTMLTextAreaElement).value = g.unvertraeglichkeiten || '';
+      (document.getElementById('edit-nachricht') as HTMLTextAreaElement).value = g.nachricht || '';
+      (document.getElementById('edit-modal') as HTMLElement).classList.add('active');
+    };
+
+    document.getElementById('btn-cancel-edit')?.addEventListener('click', () => {
+      (document.getElementById('edit-modal') as HTMLElement).classList.remove('active');
+    });
+
+    document.getElementById('edit-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = parseInt((document.getElementById('edit-id') as HTMLInputElement).value);
+      const data = {
+        id,
+        name: (document.getElementById('edit-name') as HTMLInputElement).value,
+        email: (document.getElementById('edit-email') as HTMLInputElement).value,
+        dabei: (document.getElementById('edit-dabei') as HTMLSelectElement).value,
+        personen: parseInt((document.getElementById('edit-personen') as HTMLInputElement).value) || 1,
+        unvertraeglichkeiten: (document.getElementById('edit-unvertraeglichkeiten') as HTMLTextAreaElement).value,
+        nachricht: (document.getElementById('edit-nachricht') as HTMLTextAreaElement).value,
+      };
+
+      await fetch('/api/admin/guests', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      (document.getElementById('edit-modal') as HTMLElement).classList.remove('active');
+      loadGuests();
+    });
+
+    // Delete
+    (window as any).openDelete = (id: number, name: string) => {
+      (document.getElementById('delete-id') as HTMLInputElement).value = id.toString();
+      (document.getElementById('delete-name') as HTMLElement).textContent = name;
+      (document.getElementById('delete-modal') as HTMLElement).classList.add('active');
+    };
+
+    document.getElementById('btn-cancel-delete')?.addEventListener('click', () => {
+      (document.getElementById('delete-modal') as HTMLElement).classList.remove('active');
+    });
+
+    document.getElementById('btn-confirm-delete')?.addEventListener('click', async () => {
+      const id = parseInt((document.getElementById('delete-id') as HTMLInputElement).value);
+
+      await fetch('/api/admin/guests', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+
+      (document.getElementById('delete-modal') as HTMLElement).classList.remove('active');
+      loadGuests();
+    });
+
+    // Logout
+    document.getElementById('btn-logout')?.addEventListener('click', () => {
+      document.cookie = 'admin_session=; Path=/; Max-Age=0';
+      window.location.href = '/admin/login';
+    });
+
+    // Init
+    loadGuests();
+
+    // ========== TABS ==========
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = (btn as HTMLElement).dataset.tab;
+        document.getElementById(`tab-${tab}`)?.classList.add('active');
+        if (tab === 'planning') loadTasks();
+      });
+    });
+
+    // ========== PLANNING / TASKS ==========
+    async function loadTasks() {
+      try {
+        const res = await fetch('/api/admin/tasks');
+        if (res.status === 401) { window.location.href = '/admin/login'; return; }
+        const { sections, stats } = await res.json();
+
+        // Progress
+        const pct = stats.total > 0 ? Math.round((stats.done / stats.total) * 100) : 0;
+        (document.getElementById('task-progress') as HTMLElement).style.width = pct + '%';
+        (document.getElementById('task-progress-text') as HTMLElement).textContent = `${stats.done} / ${stats.total}`;
+
+        const grid = document.getElementById('planning-grid') as HTMLElement;
+        const sectionOrder = [
+          'Vorab & Einladungen',
+          '① Strandperle',
+          '② Spaziergang Elbstrand',
+          '③ Barkasse',
+          '④ Landungsbrücken',
+          '⑤ La Cocina',
+          'Nachher & Logistik',
+        ];
+
+        const sectionIcons: Record<string, string> = {
+          'Vorab & Einladungen': '✉️',
+          '① Strandperle': '🏖️',
+          '② Spaziergang Elbstrand': '🚶',
+          '③ Barkasse': '🚢',
+          '④ Landungsbrücken': '⚓',
+          '⑤ La Cocina': '🍽️',
+          'Nachher & Logistik': '🚕',
+        };
+
+        // Include sections from DB that might not be in the default order
+        const allSections = [...sectionOrder];
+        for (const s of Object.keys(sections)) {
+          if (!allSections.includes(s)) allSections.push(s);
+        }
+
+        grid.innerHTML = allSections.filter(s => sections[s]).map((sectionName) => {
+          const tasks = sections[sectionName] || [];
+          const done = tasks.filter((t: any) => t.done).length;
+          const icon = sectionIcons[sectionName] || '📋';
+
+          return `<div class="task-section">
+            <div class="task-section-header">
+              <span class="task-section-title">${icon} ${esc(sectionName)}</span>
+              <span class="task-section-count">${done}/${tasks.length}</span>
+            </div>
+            <ul class="task-list">
+              ${tasks.map((t: any) => `
+                <li class="task-item">
+                  <div class="task-checkbox ${t.done ? 'checked' : ''}" onclick="toggleTaskDone(${t.id})"></div>
+                  <span class="task-label ${t.done ? 'done' : ''}" onclick="toggleTaskDone(${t.id})">${esc(t.title)}</span>
+                </li>
+              `).join('')}
+            </ul>
+            <div class="add-task-row">
+              <input type="text" class="add-task-input" placeholder="Neue Aufgabe..." data-section="${esc(sectionName)}" onkeydown="if(event.key==='Enter')addNewTask(this)" />
+              <button class="add-task-btn" onclick="addNewTask(this.previousElementSibling)">+</button>
+            </div>
+          </div>`;
+        }).join('');
+
+      } catch (err) {
+        console.error('Tasks load error:', err);
+      }
+    }
+
+    (window as any).toggleTaskDone = async (id: number) => {
+      await fetch('/api/admin/tasks', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      loadTasks();
+    };
+
+    (window as any).removeTask = async (id: number) => {
+      await fetch('/api/admin/tasks', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      loadTasks();
+    };
+
+    (window as any).addNewTask = async (input: HTMLInputElement) => {
+      const title = input.value.trim();
+      if (!title) return;
+      const section = input.dataset.section || '';
+
+      await fetch('/api/admin/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ section, title }),
+      });
+      input.value = '';
+      loadTasks();
+    };
+  </script>
+</body>
+</html>
