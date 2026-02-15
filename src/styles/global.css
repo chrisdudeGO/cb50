@@ -163,6 +163,47 @@
     position: relative;
   }
 
+  /* Mobile timeline readability */
+  @media (max-width: 767px) {
+    .timeline-photo-text {
+      background: rgba(244, 241, 236, 0.85);
+      padding: 6px 12px;
+      border-radius: 6px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    /* Station card elements — background markers + larger fonts */
+    .timeline-card-desc {
+      background: rgba(244, 241, 236, 0.75);
+      padding: 4px 10px;
+      border-radius: 4px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      color: #2a2d3a;
+      font-size: 0.9375rem; /* 15px */
+      line-height: 1.65;
+    }
+    .timeline-card-addr {
+      background: rgba(244, 241, 236, 0.7);
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .timeline-card-time {
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .timeline-card h3 {
+      font-size: 1.625rem; /* 26px */
+      background: rgba(244, 241, 236, 0.7);
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+  }
+
   /* Mobile map: prevent tap highlight, cleaner touch UX */
   .leaflet-grab,
   .leaflet-dragging .leaflet-grab {

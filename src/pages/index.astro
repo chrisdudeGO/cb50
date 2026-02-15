@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-<Layout title="CB50">
+<Layout title="Chris wird 50">
 
   <!-- ==================== HERO ==================== -->
   <section class="section min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
@@ -29,8 +29,9 @@ import '../styles/global.css';
       </div>
 
       <!-- Countdown -->
-      <div class="flex justify-center">
-      <div id="countdown" class="inline-flex items-center justify-center gap-4 md:gap-6" style="background: rgba(244,241,236,0.75); padding: 12px 24px; border-radius: 6px;">
+      <div class="flex flex-col items-center">
+      <div id="countdown" class="inline-flex flex-col items-center gap-2" style="background: rgba(244,241,236,0.75); padding: 12px 24px; border-radius: 6px;">
+        <div class="inline-flex items-center justify-center gap-4 md:gap-6">
         <div class="flex flex-col items-center">
           <span id="cd-days" class="cd-digit">000</span>
           <span class="cd-label">Tage</span>
@@ -50,11 +51,12 @@ import '../styles/global.css';
           <span id="cd-seconds" class="cd-digit">00</span>
           <span class="cd-label">Sek</span>
         </div>
+        </div>
+        <span class="font-mono text-[10px] text-[#8b8fa3] uppercase tracking-widest">Party Timer</span>
       </div>
       </div>
 
       <!-- Scroll hint -->
-      <div class="pt-8">
         <div class="w-px h-12 bg-gradient-to-b from-transparent to-[#1a1d2e]/15 mx-auto"></div>
       </div>
     </div>
@@ -125,13 +127,13 @@ import '../styles/global.css';
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c2703e] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm">15:00</p>
+                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">15:00</p>
               </div>
               <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Strandperle</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed">
+              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
                 Ankommen, Umtrunk, Füße in den Sand. Wir starten entspannt am schönsten Strand Hamburgs.
               </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2">Övelgönne 60, 22605 Hamburg</p>
+              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Övelgönne 60, 22605 Hamburg</p>
             </div>
             <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
@@ -147,8 +149,8 @@ import '../styles/global.css';
               <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/20 to-[#f4f1ec]/60"></div>
             </div>
             <div class="relative z-10 px-8 md:px-16 max-w-md space-y-3">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Strandperle</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
+              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Strandperle</p>
+              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
                 Sand unter den Füßen, Blick auf die Elbe, Containerschiffe ziehen vorbei.
               </p>
             </div>
@@ -162,13 +164,13 @@ import '../styles/global.css';
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm">16:45</p>
+                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">16:45</p>
               </div>
               <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Zum Anleger</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed">
+              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
                 Kurzer Spaziergang am Elbstrand entlang zum Anleger Övelgönne.
               </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2">Strandperle → Anleger Övelgönne</p>
+              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Strandperle → Anleger Övelgönne</p>
             </div>
             <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
@@ -184,8 +186,8 @@ import '../styles/global.css';
               <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/20 to-[#f4f1ec]/60"></div>
             </div>
             <div class="relative z-10 px-8 md:px-16 max-w-md space-y-3">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Museumshafen</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
+              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Museumshafen</p>
+              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
                 Historische Schiffe, Elbblick, Abendlicht. Kurzer Halt am Museumshafen bevor es auf’s Wasser geht.
               </p>
             </div>
@@ -199,13 +201,13 @@ import '../styles/global.css';
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm">17:00</p>
+                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">17:00</p>
               </div>
               <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Barkasse</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed">
+              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
                 Abfahrt Anleger Övelgönne. Mit der Barkasse über die Elbe Richtung Landungsbrücken — Hamburg von seiner besten Seite.
               </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
+              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
             </div>
             <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
@@ -220,8 +222,8 @@ import '../styles/global.css';
             />
             <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Auf der Elbe</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
+              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Auf der Elbe</p>
+              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
                 Hamburger Skyline vom Wasser. Elbphilharmonie, Kräne, Containerschiffe — die Stadt von ihrer schönsten Seite.
               </p>
             </div>
@@ -238,8 +240,8 @@ import '../styles/global.css';
             />
             <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Hamburger Hafen</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
+              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Hamburger Hafen</p>
+              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
                 Vorbei an Docks und Werften. Der Geruch von Salz und Diesel — Hafenluft in Reinform.
               </p>
             </div>
@@ -253,13 +255,13 @@ import '../styles/global.css';
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm">18:30</p>
+                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">18:30</p>
               </div>
               <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Landungsbrücken</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed">
+              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
                 Ankunft Brücke 1. Dann zu Fuß durch die Hafengegend ins Portugiesenviertel.
               </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2">Landungsbrücken, Brücke 1</p>
+              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Landungsbrücken, Brücke 1</p>
             </div>
             <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
@@ -274,8 +276,8 @@ import '../styles/global.css';
             />
             <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
             <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em]">Portugiesenviertel</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed">
+              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Portugiesenviertel</p>
+              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
                 Durch enge Gassen vorbei an Tapasbars und Fado-Klängen. Hamburgs südländischste Ecke.
               </p>
             </div>
@@ -289,13 +291,13 @@ import '../styles/global.css';
             <div class="relative z-10 timeline-card max-w-md space-y-3">
               <div class="flex items-center gap-4 mb-4">
                 <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm">19:00</p>
+                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">19:00</p>
               </div>
               <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Küchenparty</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed">
+              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
                 La Cocina — gemeinsam kochen, essen, trinken. Keine Zuschauer, alle machen mit.
               </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2">La Cocina, Ludwig-Erhard-Straße 37</p>
+              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">La Cocina, Ludwig-Erhard-Straße 37</p>
             </div>
           </div>
 
@@ -384,7 +386,13 @@ import '../styles/global.css';
           <option value="Schaffe es leider nicht">Schaffe es leider nicht</option>
         </select>
         <input type="number" name="Personen" placeholder="Anzahl Personen gesamt (inkl. Dir)" min="1" max="10" class="form-input" />
-        <textarea name="Unverträglichkeiten" placeholder="Unverträglichkeiten / Ernährungswünsche (optional)" rows="2" class="form-input"></textarea>
+        <select name="Ernaehrung" class="form-input">
+          <option value="" disabled selected>Ernährung (optional)</option>
+          <option value="Alles">Alles — keine Einschränkungen</option>
+          <option value="Vegetarisch">Vegetarisch</option>
+          <option value="Vegan">Vegan</option>
+        </select>
+        <textarea name="Unverträglichkeiten" placeholder="Allergien / Unverträglichkeiten (optional)" rows="2" class="form-input"></textarea>
         <textarea name="Nachricht" placeholder="Nachricht (optional)" rows="3" class="form-input"></textarea>
         <button type="submit" class="btn-primary w-full mt-2">
           Absenden
@@ -479,6 +487,118 @@ import '../styles/global.css';
             style="border-radius: 12px;"
           ></iframe>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="section py-24 md:py-32" id="faq">
+    <div class="max-w-3xl mx-auto">
+      <div class="fade-up">
+        <div class="accent-line mb-6"></div>
+        <p class="mono-label mb-3">Fragen & Antworten</p>
+        <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e] mb-12">FAQ</h2>
+      </div>
+
+      <div class="space-y-0 fade-up">
+        <!-- Dresscode -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Gibt es einen Dresscode?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Kommt so, wie ihr euch wohlfühlt. Wir sind den ganzen Tag draußen und am Wasser unterwegs — bequeme Schuhe sind wichtiger als schicke. Abends wird gekocht, nicht diniert.
+          </div>
+        </details>
+
+        <!-- Kinder -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Können Kinder mitkommen?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Am Elbstrand und auf der Barkasse sind Kinder herzlich willkommen! Beim Kochen abends bei La Cocina sind nur unsere eigenen Kids und ein paar wenige eng befreundete Kinder dabei — bitte habt Verständnis.
+          </div>
+        </details>
+
+        <!-- Anreise -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Wie komme ich zur Strandperle?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Mit dem ÖPNV: Bus 112 bis Haltestelle <strong>Neumühlen/Övelgönne</strong>, dann ca. 5 Minuten zu Fuß den Elbstrand entlang. Alternativ Fähre 62 ab Landungsbrücken bis <strong>Neumühlen</strong>. Unten am Strand gibt es keine Parkplätze — Autofahrer parken oben an der Elbchaussee.
+          </div>
+        </details>
+
+        <!-- Schlechtes Wetter -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Was passiert bei schlechtem Wetter?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Sollte das Wetter nicht mitspielen, fällt die Strandperle aus. Wir treffen uns dann stattdessen um <strong>17:00 Uhr direkt am Anleger Övelgönne</strong> und starten von dort mit der Barkasse. Ihr bekommt rechtzeitig Bescheid.
+          </div>
+        </details>
+
+        <!-- Treffpunkt 17h -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Kann ich auch erst um 17 Uhr dazustoßen?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Klar! Wer nicht schon um 15 Uhr an der Strandperle sein kann, kommt einfach um <strong>17:00 Uhr zum Anleger Övelgönne</strong>. Die Barkasse legt pünktlich ab — bitte seid ein paar Minuten vorher da. Vermerkt das bitte kurz im RSVP-Formular unter „Nachricht“.
+          </div>
+        </details>
+
+        <!-- Geschenke -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Sollen wir etwas mitbringen?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Eure Anwesenheit ist das beste Geschenk. Wirklich. Wer trotzdem etwas beisteuern möchte — überrascht uns.
+          </div>
+        </details>
+
+        <!-- Dauer -->
+        <details class="group border-b border-[#1a1d2e]/[0.06]">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Wie lange geht der Abend?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            La Cocina gehört uns für den ganzen Abend. Nach dem Kochen und Essen wird die Küche zur Tanzfläche. Open End — bleibt so lange ihr wollt.
+          </div>
+        </details>
+
+        <!-- Allergien -->
+        <details class="group">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Ich habe Allergien / Unverträglichkeiten — was tun?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Tragt eure Unverträglichkeiten einfach im RSVP-Formular ein. Wir geben alles an La Cocina weiter, damit beim Kochen darauf Rücksicht genommen wird.
+          </div>
+        </details>
+
+        <!-- Unterkunft -->
+        <details class="group">
+          <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
+            <span class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] group-open:text-[#c2703e] transition-colors">Gibt es eine Übernachtungsempfehlung?</span>
+            <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
+            Das <strong>Motel One Hamburg-Altonaer Straße</strong> liegt direkt gegenüber von La Cocina. Wir haben dort ein Zimmerkontingent zu vergünstigten Konditionen reserviert — gebt bei der Buchung einfach das Stichwort <strong>„chris50"</strong> an.
+          </div>
+        </details>
       </div>
     </div>
   </section>

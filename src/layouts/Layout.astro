@@ -11,7 +11,7 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="CB50 — 19. September 2026, Hamburg" />
+    <meta name="description" content="Chris wird 50 — 19. September 2026, Hamburg" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -152,9 +152,9 @@ const { title } = Astro.props;
           // Hamburg locations
           // stop 0 = Intro, 1 = Strandperle, 2 = Elbe image, 3 = Walk, 4 = Museumshafen image, 5 = Barkasse, 6 = Boat photo, 7 = Boat photo, 8 = Landungsbrücken, 9 = Portugiesenviertel image, 10 = La Cocina
           const stops = [
-            { name: 'Übersicht', lat: 53.5465, lng: 9.9400, zoom: isMobile ? 12 : 13 },
-            { name: 'Strandperle', lat: 53.5445, lng: 9.9055, zoom: isMobile ? 15 : 16 },
-            { name: 'Strandperle', lat: 53.5445, lng: 9.9055, zoom: isMobile ? 15 : 16 },
+            { name: 'Übersicht', lat: 53.5465, lng: 9.9400, zoom: isMobile ? 12.5 : 13.5 },
+            { name: 'Strandperle', lat: 53.5445, lng: 9.9055, zoom: isMobile ? 15.5 : 16.5 },
+            { name: 'Strandperle', lat: 53.5445, lng: 9.9055, zoom: isMobile ? 15.5 : 16.5 },
             { name: 'Anleger Övelgönne', lat: 53.5441122, lng: 9.9120346, zoom: isMobile ? 16 : 17 },
             { name: 'Museumshafen', lat: 53.5441122, lng: 9.9120346, zoom: isMobile ? 16 : 17 },
             { name: 'Anleger Övelgönne', lat: 53.5441122, lng: 9.9120346, zoom: isMobile ? 14 : 15 },
@@ -189,7 +189,7 @@ const { title } = Astro.props;
           // Create map
           const map = L.map(mapEl, {
             center: [53.5465, 9.9400],
-            zoom: isMobile ? 12 : 13,
+            zoom: isMobile ? 12.5 : 13.5,
             zoomControl: false,
             attributionControl: false,
             scrollWheelZoom: false,
@@ -444,14 +444,19 @@ const { title } = Astro.props;
           // ---- Lenis-driven snap: settle onto nearest card when scrolling stops ----
           let snapTimer: ReturnType<typeof setTimeout>;
           let isSnapping = false;
+          let snapEnabled = false; // Disable snap for the initial scroll into the timeline
 
           function snapToNearestCard() {
+            if (!snapEnabled) return;
             const allTriggers = ScrollTrigger.getAll();
             const st = allTriggers.find((s) => s.vars.trigger === timetable);
             if (!st || !st.isActive) return;
 
             const snapPoints = computeSnapPoints();
             const current = st.progress;
+
+            // Enable snap only after scrolling past the intro card
+            if (!snapEnabled) return;
 
             // Find nearest snap point
             let nearest = snapPoints[0];
@@ -474,21 +479,38 @@ const { title } = Astro.props;
           }
 
           function scheduleSnap() {
-            if (isSnapping) return;
+            if (isSnapping || !snapEnabled) return;
             clearTimeout(snapTimer);
             snapTimer = setTimeout(snapToNearestCard, 200);
+          }
+
+          // Enable snap once user scrolls past the intro card
+          function checkSnapEnable() {
+            if (snapEnabled) return;
+            const allTriggers = ScrollTrigger.getAll();
+            const st = allTriggers.find((s) => s.vars.trigger === timetable);
+            if (!st || !st.isActive) return;
+            const snapPoints = computeSnapPoints();
+            // Enable after progressing past the midpoint between intro (0) and first station (1)
+            if (snapPoints.length >= 2 && st.progress > (snapPoints[0] + snapPoints[1]) / 2) {
+              snapEnabled = true;
+            }
           }
 
           // Snap after wheel activity stops
           window.addEventListener('wheel', () => {
             if (isSnapping) { isSnapping = false; }
+            checkSnapEnable();
             scheduleSnap();
           }, { passive: true });
 
           // Snap after touch ends (longer delay for momentum)
           window.addEventListener('touchend', () => {
+            checkSnapEnable();
             clearTimeout(snapTimer);
-            snapTimer = setTimeout(snapToNearestCard, 400);
+            if (snapEnabled) {
+              snapTimer = setTimeout(snapToNearestCard, 400);
+            }
           }, { passive: true });
 
           // ---- Stop activation ----

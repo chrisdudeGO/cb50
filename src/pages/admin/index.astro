@@ -14,7 +14,7 @@ if (!authenticated) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gästeverwaltung — CB50</title>
+  <title>Gästeverwaltung — Chris wird 50</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style is:global>
@@ -539,6 +539,7 @@ if (!authenticated) {
           <th>Email</th>
           <th>Status</th>
           <th>Pers.</th>
+          <th>Ernährung</th>
           <th>Unverträglichkeiten</th>
           <th>Nachricht</th>
           <th>Datum</th>
@@ -593,6 +594,15 @@ if (!authenticated) {
         <div class="form-group">
           <label for="edit-personen">Anzahl Personen</label>
           <input type="number" id="edit-personen" min="1" max="10" />
+        </div>
+        <div class="form-group">
+          <label for="edit-ernaehrung">Ernährung</label>
+          <select id="edit-ernaehrung">
+            <option value="">Keine Angabe</option>
+            <option value="Alles">Alles</option>
+            <option value="Vegetarisch">Vegetarisch</option>
+            <option value="Vegan">Vegan</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="edit-unvertraeglichkeiten">Unverträglichkeiten</label>
@@ -667,6 +677,7 @@ if (!authenticated) {
           <td class="text-sm">${esc(g.email)}</td>
           <td><span class="badge ${badgeClass}">${esc(g.dabei)}</span></td>
           <td class="mono">${g.personen}</td>
+          <td class="text-sm text-muted">${esc(g.ernaehrung) || '—'}</td>
           <td class="text-sm text-muted">${esc(g.unvertraeglichkeiten) || '—'}</td>
           <td class="text-sm text-muted">${esc(g.nachricht) || '—'}</td>
           <td class="timestamp">${formatDate(g.created_at)}</td>
@@ -713,6 +724,7 @@ if (!authenticated) {
       (document.getElementById('edit-email') as HTMLInputElement).value = g.email;
       (document.getElementById('edit-dabei') as HTMLSelectElement).value = g.dabei;
       (document.getElementById('edit-personen') as HTMLInputElement).value = g.personen;
+      (document.getElementById('edit-ernaehrung') as HTMLSelectElement).value = g.ernaehrung || '';
       (document.getElementById('edit-unvertraeglichkeiten') as HTMLTextAreaElement).value = g.unvertraeglichkeiten || '';
       (document.getElementById('edit-nachricht') as HTMLTextAreaElement).value = g.nachricht || '';
       (document.getElementById('edit-modal') as HTMLElement).classList.add('active');
@@ -731,6 +743,7 @@ if (!authenticated) {
         email: (document.getElementById('edit-email') as HTMLInputElement).value,
         dabei: (document.getElementById('edit-dabei') as HTMLSelectElement).value,
         personen: parseInt((document.getElementById('edit-personen') as HTMLInputElement).value) || 1,
+        ernaehrung: (document.getElementById('edit-ernaehrung') as HTMLSelectElement).value,
         unvertraeglichkeiten: (document.getElementById('edit-unvertraeglichkeiten') as HTMLTextAreaElement).value,
         nachricht: (document.getElementById('edit-nachricht') as HTMLTextAreaElement).value,
       };

@@ -11,6 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
     const email = data.Email?.trim() || '';
     const dabei = data.Dabei || '';
     const personen = parseInt(data.Personen) || 1;
+    const ernaehrung = data.Ernaehrung || '';
     const unvertraeglichkeiten = data['Unverträglichkeiten'] || '';
     const nachricht = data.Nachricht || '';
 
@@ -26,6 +27,7 @@ export const POST: APIRoute = async ({ request }) => {
       email,
       dabei,
       personen,
+      ernaehrung,
       unvertraeglichkeiten,
       nachricht,
     });

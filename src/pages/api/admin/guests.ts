@@ -49,6 +49,7 @@ export const PUT: APIRoute = async ({ request }) => {
       email: data.email ?? (existing as any).email,
       dabei: data.dabei ?? (existing as any).dabei,
       personen: data.personen ?? (existing as any).personen,
+      ernaehrung: data.ernaehrung ?? (existing as any).ernaehrung ?? '',
       unvertraeglichkeiten: data.unvertraeglichkeiten ?? (existing as any).unvertraeglichkeiten,
       nachricht: data.nachricht ?? (existing as any).nachricht,
     });

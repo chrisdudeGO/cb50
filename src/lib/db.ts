@@ -22,6 +22,7 @@ db.exec(`
     email TEXT NOT NULL,
     dabei TEXT NOT NULL DEFAULT '',
     personen INTEGER NOT NULL DEFAULT 1,
+    ernaehrung TEXT DEFAULT '',
     unvertraeglichkeiten TEXT DEFAULT '',
     nachricht TEXT DEFAULT '',
     created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
@@ -109,8 +110,8 @@ if (taskCount === 0) {
 
 // Prepared statements
 export const insertGuest = db.prepare(`
-  INSERT INTO guests (name, email, dabei, personen, unvertraeglichkeiten, nachricht)
-  VALUES (@name, @email, @dabei, @personen, @unvertraeglichkeiten, @nachricht)
+  INSERT INTO guests (name, email, dabei, personen, ernaehrung, unvertraeglichkeiten, nachricht)
+  VALUES (@name, @email, @dabei, @personen, @ernaehrung, @unvertraeglichkeiten, @nachricht)
 `);
 
 export const getAllGuests = db.prepare(`
@@ -127,6 +128,7 @@ export const updateGuest = db.prepare(`
     email = @email,
     dabei = @dabei,
     personen = @personen,
+    ernaehrung = @ernaehrung,
     unvertraeglichkeiten = @unvertraeglichkeiten,
     nachricht = @nachricht,
     updated_at = datetime('now', 'localtime')
