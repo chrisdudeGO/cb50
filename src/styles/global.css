@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(194, 112, 62, 0.25);
+    color: #1a1d2e;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f4f1ec;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(194, 112, 62, 0.35);
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Grain / noise overlay */
+  .grain::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.018;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+  }
+
+  /* Section base */
+  .section {
+    @apply relative w-full px-6 md:px-12 lg:px-24;
+  }
+
+  /* Card — warm light */
+  .card {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(26, 29, 46, 0.08);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(26, 29, 46, 0.04);
+  }
+
+  .card-hover {
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(194, 112, 62, 0.3);
+    box-shadow: 0 4px 12px rgba(26, 29, 46, 0.06);
+  }
+
+  /* Accent line */
+  .accent-line {
+    width: 3rem;
+    height: 1px;
+    background: #c2703e;
+    opacity: 0.6;
+  }
+
+  /* Mono label */
+  .mono-label {
+    @apply font-mono text-xs uppercase tracking-[0.25em];
+    color: #8b8fa3;
+  }
+
+  /* Countdown */
+  .cd-digit {
+    @apply font-mono text-4xl md:text-6xl font-light tabular-nums;
+    color: #1a1d2e;
+  }
+  .cd-label {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] mt-1;
+    color: #8b8fa3;
+  }
+  .cd-sep {
+    @apply text-3xl md:text-5xl font-light self-start mt-1;
+    color: #c8cad4;
+  }
+
+  /* Gallery */
+  .gallery-item {
+    @apply overflow-hidden rounded-lg relative cursor-pointer;
+    aspect-ratio: 1;
+  }
+  .gallery-item img {
+    @apply w-full h-full object-cover transition-transform duration-700;
+  }
+  .gallery-item:hover img {
+    @apply scale-105;
+  }
+
+  /* Form */
+  .form-input {
+    @apply w-full rounded-lg px-4 py-3 font-mono text-sm transition-colors;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(26, 29, 46, 0.12);
+    color: #1a1d2e;
+  }
+  .form-input::placeholder {
+    color: #a0a4b8;
+  }
+  .form-input:focus {
+    outline: none;
+    border-color: rgba(194, 112, 62, 0.5);
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 font-mono text-xs uppercase tracking-[0.2em] rounded-lg transition-all duration-300;
+    border: 1px solid rgba(26, 29, 46, 0.2);
+    color: #1a1d2e;
+  }
+  .btn-primary:hover {
+    background: rgba(194, 112, 62, 0.08);
+    border-color: #c2703e;
+    color: #c2703e;
+  }
+
+  /* Map tooltip */
+  .map-tooltip {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(26, 29, 46, 0.1) !important;
+    color: #1a1d2e !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.05em !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 16px rgba(26, 29, 46, 0.1) !important;
+  }
+
+  .map-tooltip::before {
+    border-top-color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .leaflet-container {
+    background: #eae7e2 !important;
+  }
+
+  /* Timeline horizontal track */
+  #timeline-track-wrapper {
+    background: #f4f1ec;
+  }
+
+  #timeline-track {
+    will-change: transform;
+  }
+
+  .timeline-card {
+    position: relative;
+  }
+
+  /* Mobile map: prevent tap highlight, cleaner touch UX */
+  .leaflet-grab,
+  .leaflet-dragging .leaflet-grab {
+    cursor: default !important;
+  }
+
+  .leaflet-container {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Hide leaflet default marker shadows */
+  .leaflet-marker-shadow {
+    display: none !important;
+  }
+
+  /* Walking icon bounce */
+  @keyframes walkBounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
+  }
+}
