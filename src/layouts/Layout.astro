@@ -517,12 +517,13 @@ const { title } = Astro.props;
             // Debounce map flyTo — prevents rapid successive calls during fast scroll
             clearTimeout(flyToTimeout);
             flyToTimeout = setTimeout(() => {
-              const stop = stops[index];
+              const stop = stops[currentStop];
+              map.stop(); // Cancel any in-progress animation first
               map.flyTo([stop.lat, stop.lng], stop.zoom, {
                 duration: 1.2,
                 easeLinearity: 0.25,
               });
-            }, 120);
+            }, 50);
 
 
             // Progressive route reveal
