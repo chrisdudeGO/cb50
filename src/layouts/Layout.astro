@@ -27,7 +27,7 @@ const { title } = Astro.props;
     />
     <title>{title}</title>
   </head>
-  <body class="overflow-x-hidden bg-[#f4f1ec] text-[#1a1d2e] font-['Inter',sans-serif] grain">
+  <body class="overflow-x-hidden bg-[#f4f1ec] text-[#1a1d2e] font-['Inter',sans-serif]">
     <slot />
     <script>
       import Lenis from 'lenis';
@@ -41,7 +41,6 @@ const { title } = Astro.props;
         duration: 1.0,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
-        lerp: 0.1,
       });
 
       lenis.on('scroll', ScrollTrigger.update);
@@ -217,22 +216,35 @@ const { title } = Astro.props;
             opacity: 0.6,
           }).addTo(map);
 
-          // Marker icons
-          const createIcon = (active: boolean) =>
-            L.divIcon({
-              className: 'custom-marker',
-              html: `<div style="
-                width: ${active ? '14px' : '8px'};
-                height: ${active ? '14px' : '8px'};
-                background: ${active ? '#c2703e' : 'rgba(26,29,46,0.2)'};
-                border: 2px solid ${active ? '#d4874f' : 'rgba(26,29,46,0.3)'};
-                border-radius: 50%;
-                box-shadow: ${active ? '0 0 12px rgba(194,112,62,0.35)' : 'none'};
-                transition: all 0.5s ease;
-              "></div>`,
-              iconSize: [active ? 14 : 8, active ? 14 : 8],
-              iconAnchor: [active ? 7 : 4, active ? 7 : 4],
-            });
+          // Marker icons — cached to avoid recreating DOM elements
+          const iconActive = L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="
+              width: 14px;
+              height: 14px;
+              background: #c2703e;
+              border: 2px solid #d4874f;
+              border-radius: 50%;
+              box-shadow: 0 0 12px rgba(194,112,62,0.35);
+              transition: all 0.5s ease;
+            "></div>`,
+            iconSize: [14, 14],
+            iconAnchor: [7, 7],
+          });
+
+          const iconInactive = L.divIcon({
+            className: 'custom-marker',
+            html: `<div style="
+              width: 8px;
+              height: 8px;
+              background: rgba(26,29,46,0.2);
+              border: 2px solid rgba(26,29,46,0.3);
+              border-radius: 50%;
+              transition: all 0.5s ease;
+            "></div>`,
+            iconSize: [8, 8],
+            iconAnchor: [4, 4],
+          });
 
           // Place markers (skip intro index 0 and walk index 2)
           // Initially hidden — revealed progressively
@@ -241,7 +253,7 @@ const { title } = Astro.props;
           markerIndices.forEach((si) => {
             const stop = stops[si];
             const marker = L.marker([stop.lat, stop.lng], {
-              icon: createIcon(false),
+              icon: iconInactive,
             }).addTo(map);
             // Hide initially via DOM element (divIcon doesn't support opacity option well)
             setTimeout(() => {
@@ -516,21 +528,16 @@ const { title } = Astro.props;
 
           // ---- Stop activation ----
           let currentStop = -1;
-          let flyToTimeout: ReturnType<typeof setTimeout>;
 
           function activateStop(index: number) {
             if (index === currentStop) return;
             currentStop = index;
 
-            // Debounce map flyTo — prevents rapid successive calls during fast scroll
-            clearTimeout(flyToTimeout);
-            flyToTimeout = setTimeout(() => {
-              const stop = stops[index];
-              map.flyTo([stop.lat, stop.lng], stop.zoom, {
-                duration: 1.0,
-                easeLinearity: 0.25,
-              });
-            }, 80);
+            // Instant map pan — no animation, no tile-loading stutter
+            const stop = stops[index];
+            map.setView([stop.lat, stop.lng], stop.zoom, {
+              animate: false,
+            });
 
 
             // Progressive route reveal
@@ -549,7 +556,7 @@ const { title } = Astro.props;
               const el = markers[ki].getElement();
               if (el) el.style.opacity = shouldShow ? '1' : '0';
               if (shouldShow) {
-                markers[ki].setIcon(createIcon(ki === activeMarkerIndex));
+                markers[ki].setIcon(ki === activeMarkerIndex ? iconActive : iconInactive);
               }
             });
 

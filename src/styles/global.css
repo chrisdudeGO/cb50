@@ -165,7 +165,6 @@
 
   /* GPU-promote timeline card images */
   .timeline-stop img {
-    will-change: auto;
     transform: translateZ(0);
     backface-visibility: hidden;
   }
