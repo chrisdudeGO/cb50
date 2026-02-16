@@ -67,7 +67,7 @@ import '../styles/global.css';
     <div class="max-w-5xl mx-auto space-y-16">
 
       <!-- Greeting -->
-      <div class="fade-up max-w-2xl">
+      <div class="max-w-2xl">
         <div class="accent-line mb-6"></div>
         <p class="text-2xl md:text-3xl font-light leading-relaxed text-[#2a2d3a]">
           Ich werde 50. Lasst uns das feiern. Mit gutem Essen, guten Drinks, guter Musik und vor allem...mit euch!
@@ -75,8 +75,8 @@ import '../styles/global.css';
       </div>
 
       <!-- Quick info -->
-      <div class="stagger-group">
-        <div class="stagger-item card card-hover p-8 space-y-4 max-w-md">
+      <div>
+        <div class="card card-hover p-8 space-y-4 max-w-md">
           <p class="mono-label">Wann</p>
           <p class="text-xl font-['Space_Grotesk',sans-serif] font-medium text-[#1a1d2e]">
             19. September 2026
@@ -87,279 +87,119 @@ import '../styles/global.css';
     </div>
   </section>
 
-  <!-- ==================== PROGRAMM-ÜBERSICHT ==================== -->
-  <section class="section py-24 md:py-32">
-    <div class="max-w-3xl mx-auto fade-up">
-      <div class="accent-line mb-6"></div>
-      <p class="mono-label mb-3">Auf einen Blick</p>
-      <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e] mb-12">Das Programm</h2>
-
-      <div class="space-y-0">
-        <!-- 15:00 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">15:00</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Strandperle</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Ankommen &amp; Umtrunk am Elbstrand</p>
-            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Övelgönne 60, 22605 Hamburg</p>
-          </div>
-        </div>
-        <!-- 16:45 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">16:45</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Spaziergang zum Anleger</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Am Elbstrand entlang zum Anleger Övelgönne</p>
-          </div>
-        </div>
-        <!-- 17:00 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">17:00</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Barkassenfahrt</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Mit der Barkasse über die Elbe Richtung Landungsbrücken</p>
-            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
-          </div>
-        </div>
-        <!-- 18:30 -->
-        <div class="flex gap-6 items-start py-6 border-b border-[#1a1d2e]/[0.06]">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">18:30</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Landungsbrücken</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Zu Fuß durch die Hafengegend ins Portugiesenviertel</p>
-          </div>
-        </div>
-        <!-- 19:00 -->
-        <div class="flex gap-6 items-start py-6">
-          <p class="font-mono text-[#c2703e] text-sm w-16 flex-shrink-0 pt-0.5">19:00</p>
-          <div>
-            <h3 class="font-['Space_Grotesk',sans-serif] text-lg text-[#1a1d2e] mb-1">Küchenparty</h3>
-            <p class="text-sm text-[#4a4d5e] leading-relaxed">Gemeinsam kochen, essen &amp; feiern bei La Cocina</p>
-            <p class="font-mono text-[11px] text-[#8b8fa3] mt-1">La Cocina, Ludwig-Erhard-Straße 37</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== TIMETABLE + MAP ==================== -->
-  <section class="relative" id="timetable">
-
-    <!-- Sticky viewport: stays fixed while section scrolls behind -->
-    <div id="timeline-viewport" class="sticky top-0 h-screen w-full flex flex-col">
-      <!-- Map — top 50% -->
-      <div class="relative flex-none h-[50vh] w-full bg-[#eae7e2]"><div id="map" class="w-full h-full"></div>
-        <div class="absolute bottom-0 left-0 right-0 h-px bg-[#1a1d2e]/[0.06]"></div>
+  <!-- ==================== PROGRAMM + MAP ==================== -->
+  <section class="section py-24 md:py-32" id="programm">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-12">
+        <div class="accent-line mb-6"></div>
+        <p class="mono-label mb-3">Auf einen Blick</p>
+        <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e]">Das Programm</h2>
+        <p class="text-sm text-[#4a4d5e] mt-3">Von der Elbe durch den Hafen in die Küche. Fünf Stationen quer durch Hamburg.</p>
       </div>
 
-      <!-- Horizontal-scrolling timeline — bottom 50% -->
-      <div id="timeline-track-wrapper" class="relative flex-none h-[50vh] overflow-hidden">
-        <div id="timeline-track" class="flex items-stretch h-full">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Station Cards -->
+        <div class="flex-1 space-y-6">
 
-          <!-- Intro -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="0">
-            <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover scale-105" loading="lazy" />
-            <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(26,29,46,0.2) 100%);"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec]/70 via-[#f4f1ec]/30 to-[#f4f1ec]/50"></div>
-            <div class="relative z-10 timeline-card max-w-md space-y-4">
-              <div class="accent-line mb-2"></div>
-              <p class="mono-label"><span style="background: rgba(244,241,236,0.75); padding: 2px 8px; border-radius: 3px;">Der Tag</span></p>
-              <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e] leading-snug">
-                <span style="background: rgba(244,241,236,0.8); padding: 2px 10px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone;">Von der Elbe durch den Hafen in die Küche.</span>
-              </h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed">
-                <span style="background: rgba(244,241,236,0.7); padding: 2px 8px; border-radius: 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone;">Ein Nachmittag am Wasser, eine Fahrt über die Elbe und ein gemeinsamer Abend in der Küche. Fünf Stationen quer durch Hamburg.</span>
-              </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-3"><span style="background: rgba(244,241,236,0.7); padding: 2px 8px; border-radius: 3px;">19. September 2026 — Hamburg</span></p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- 15:00 Strandperle -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="1">
-            <img src="/photos/strandperle_hamburg.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
-            <div class="relative z-10 timeline-card max-w-md space-y-3">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c2703e] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">15:00</p>
+          <!-- Station 1: Strandperle -->
+          <div class="card overflow-hidden" data-station="1">
+            <div class="md:flex">
+              <div class="md:w-2/5 h-48 md:h-auto relative">
+                <img src="/photos/strandperle_hamburg.jpg" alt="Strandperle Hamburg" class="w-full h-full object-cover" loading="lazy" />
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-[#E53935] flex items-center justify-center shadow-md">
+                  <span class="text-white font-['Space_Grotesk',sans-serif] font-semibold text-sm">1</span>
+                </div>
               </div>
-              <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Strandperle</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
-                Ankommen, Umtrunk, Füße in den Sand. Wir starten entspannt am schönsten Strand Hamburgs.
-              </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Övelgönne 60, 22605 Hamburg</p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- Elbe view -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center justify-center relative" data-stop="2">
-            <div class="absolute inset-0">
-              <img
-                src="/photos/elbstrand-strandperle.jpg"
-                alt="Elbstrand bei der Strandperle"
-                class="w-full h-full object-cover opacity-90"
-              />
-              <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/20 to-[#f4f1ec]/60"></div>
-            </div>
-            <div class="relative z-10 px-8 md:px-16 max-w-md space-y-3">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Strandperle</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
-                Sand unter den Füßen, Blick auf die Elbe, Containerschiffe ziehen vorbei.
-              </p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- Walk to pier -->
-          <div class="timeline-stop timeline-walk flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="3" id="walk-to-pier">
-            <img src="/photos/bild-hintergrundbild-maritimes-erbe.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.35]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
-            <div class="relative z-10 timeline-card max-w-md space-y-3">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">16:45</p>
+              <div class="p-6 md:w-3/5 space-y-2">
+                <p class="font-mono text-[#c2703e] text-sm">15:00</p>
+                <h3 class="font-['Space_Grotesk',sans-serif] text-xl text-[#1a1d2e]">Strandperle</h3>
+                <p class="text-sm text-[#4a4d5e] leading-relaxed">Ankommen, Umtrunk, Füße in den Sand. Wir starten entspannt am schönsten Strand Hamburgs.</p>
+                <p class="font-mono text-[11px] text-[#8b8fa3]">Övelgönne 60, 22605 Hamburg</p>
               </div>
-              <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Zum Anleger</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
-                Kurzer Spaziergang am Elbstrand entlang zum Anleger Övelgönne.
-              </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Strandperle → Anleger Övelgönne</p>
             </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
 
-          <!-- Museumshafen photo -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center justify-center relative" data-stop="4">
-            <div class="absolute inset-0">
-              <img
-                src="/photos/Museumshafen-Oevelgoenne-Hamburg.jfif"
-                alt="Museumshafen Övelgönne"
-                class="w-full h-full object-cover opacity-90"
-              />
-              <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/20 to-[#f4f1ec]/60"></div>
-            </div>
-            <div class="relative z-10 px-8 md:px-16 max-w-md space-y-3">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Museumshafen</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
-                Historische Schiffe, Elbblick, Abendlicht. Kurzer Halt am Museumshafen bevor es auf’s Wasser geht.
-              </p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- 17:00 Barkasse -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="5">
-            <img src="/photos/an-den-landungsbrucken.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
-            <div class="relative z-10 timeline-card max-w-md space-y-3">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">17:00</p>
+          <!-- Station 2: Zum Anleger -->
+          <div class="card overflow-hidden" data-station="2">
+            <div class="md:flex">
+              <div class="md:w-2/5 h-48 md:h-auto relative">
+                <img src="/photos/Museumshafen-Oevelgoenne-Hamburg.jfif" alt="Museumshafen Övelgönne" class="w-full h-full object-cover" loading="lazy" />
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-[#E53935] flex items-center justify-center shadow-md">
+                  <span class="text-white font-['Space_Grotesk',sans-serif] font-semibold text-sm">2</span>
+                </div>
               </div>
-              <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Barkasse</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
-                Abfahrt Anleger Övelgönne. Mit der Barkasse über die Elbe Richtung Landungsbrücken — Hamburg von seiner besten Seite.
-              </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- Boat photo 1: Barkasse -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center justify-center relative overflow-hidden" data-stop="6">
-            <img
-              src="/photos/barkasse.jpg"
-              alt="Barkassenfahrt auf der Elbe"
-              class="absolute inset-0 w-full h-full object-cover opacity-70"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
-            <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Auf der Elbe</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
-                Hamburger Skyline vom Wasser. Elbphilharmonie, Kräne, Containerschiffe — die Stadt von ihrer schönsten Seite.
-              </p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- Boat photo 2: Hamburger Hafen -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center justify-center relative overflow-hidden" data-stop="7">
-            <img
-              src="/photos/barkasse1.jpg"
-              alt="Hamburger Hafen von der Barkasse"
-              class="absolute inset-0 w-full h-full object-cover opacity-70"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
-            <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Hamburger Hafen</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
-                Vorbei an Docks und Werften. Der Geruch von Salz und Diesel — Hafenluft in Reinform.
-              </p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- 18:30 Landungsbrücken -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="8">
-            <img src="/photos/landungsbr%C3%BCcken.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
-            <div class="relative z-10 timeline-card max-w-md space-y-3">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">18:30</p>
+              <div class="p-6 md:w-3/5 space-y-2">
+                <p class="font-mono text-[#c2703e] text-sm">16:45</p>
+                <h3 class="font-['Space_Grotesk',sans-serif] text-xl text-[#1a1d2e]">Spaziergang zum Anleger</h3>
+                <p class="text-sm text-[#4a4d5e] leading-relaxed">Kurzer Spaziergang am Elbstrand entlang, vorbei am Museumshafen, zum Anleger Övelgönne.</p>
+                <p class="font-mono text-[11px] text-[#8b8fa3]">Strandperle → Anleger Övelgönne</p>
               </div>
-              <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Landungsbrücken</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
-                Ankunft Brücke 1. Dann zu Fuß durch die Hafengegend ins Portugiesenviertel.
-              </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">Landungsbrücken, Brücke 1</p>
             </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
           </div>
 
-          <!-- Portugiesenviertel photo -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center justify-center relative overflow-hidden" data-stop="9">
-            <img
-              src="/photos/tausende-menschen-im-portugiesenviertel.webp"
-              alt="Portugiesenviertel Hamburg"
-              class="absolute inset-0 w-full h-full object-cover opacity-70"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/15 to-[#f4f1ec]/50"></div>
-            <div class="relative z-10 text-center max-w-sm space-y-3 px-8">
-              <p class="font-mono text-[11px] text-[#8b8fa3] uppercase tracking-[0.2em] timeline-photo-text">Portugiesenviertel</p>
-              <p class="font-['Space_Grotesk',sans-serif] text-xl md:text-2xl text-[#2a2d3a] font-light leading-relaxed timeline-photo-text">
-                Durch enge Gassen vorbei an Tapasbars und Fado-Klängen. Hamburgs südländischste Ecke.
-              </p>
-            </div>
-            <div class="absolute right-0 top-[20%] bottom-[20%] w-px bg-[#1a1d2e]/[0.06]"></div>
-          </div>
-
-          <!-- 19:00 La Cocina -->
-          <div class="timeline-stop flex-shrink-0 w-screen md:w-[50vw] h-full flex items-center px-8 md:px-16 relative overflow-hidden" data-stop="10">
-            <img src="/photos/LaCocina-Hamburg-11-683x1024-1.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.4]" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-r from-[#f4f1ec] via-[#f4f1ec]/40 to-[#f4f1ec]/30"></div>
-            <div class="relative z-10 timeline-card max-w-md space-y-3">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="timeline-dot w-[11px] h-[11px] rounded-full border-2 border-[#c8cad4] bg-[#f4f1ec] transition-all duration-500 flex-shrink-0"></div>
-                <p class="font-mono text-[#c2703e] text-sm timeline-card-time">19:00</p>
+          <!-- Station 3: Barkasse -->
+          <div class="card overflow-hidden" data-station="3">
+            <div class="md:flex">
+              <div class="md:w-2/5 h-48 md:h-auto relative">
+                <img src="/photos/barkasse.jpg" alt="Barkassenfahrt auf der Elbe" class="w-full h-full object-cover" loading="lazy" />
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-[#E53935] flex items-center justify-center shadow-md">
+                  <span class="text-white font-['Space_Grotesk',sans-serif] font-semibold text-sm">3</span>
+                </div>
               </div>
-              <h3 class="font-['Space_Grotesk',sans-serif] text-2xl md:text-3xl text-[#1a1d2e]">Küchenparty</h3>
-              <p class="text-sm text-[#4a4d5e] leading-relaxed timeline-card-desc">
-                La Cocina — gemeinsam kochen, essen, trinken. Keine Zuschauer, alle machen mit.
-              </p>
-              <p class="font-mono text-[11px] text-[#8b8fa3] mt-2 timeline-card-addr">La Cocina, Ludwig-Erhard-Straße 37</p>
+              <div class="p-6 md:w-3/5 space-y-2">
+                <p class="font-mono text-[#c2703e] text-sm">17:00</p>
+                <h3 class="font-['Space_Grotesk',sans-serif] text-xl text-[#1a1d2e]">Barkassenfahrt</h3>
+                <p class="text-sm text-[#4a4d5e] leading-relaxed">Mit der Barkasse über die Elbe Richtung Landungsbrücken — Hamburg von seiner besten Seite.</p>
+                <p class="font-mono text-[11px] text-[#8b8fa3]">Anleger Övelgönne → Landungsbrücken, Brücke 1</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Station 4: Landungsbrücken -->
+          <div class="card overflow-hidden" data-station="4">
+            <div class="md:flex">
+              <div class="md:w-2/5 h-48 md:h-auto relative">
+                <img src="/photos/an-den-landungsbrucken.jpg" alt="Landungsbrücken Hamburg" class="w-full h-full object-cover" loading="lazy" />
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-[#E53935] flex items-center justify-center shadow-md">
+                  <span class="text-white font-['Space_Grotesk',sans-serif] font-semibold text-sm">4</span>
+                </div>
+              </div>
+              <div class="p-6 md:w-3/5 space-y-2">
+                <p class="font-mono text-[#c2703e] text-sm">18:30</p>
+                <h3 class="font-['Space_Grotesk',sans-serif] text-xl text-[#1a1d2e]">Landungsbrücken</h3>
+                <p class="text-sm text-[#4a4d5e] leading-relaxed">Ankunft Brücke 1. Dann zu Fuß durch die Hafengegend ins Portugiesenviertel.</p>
+                <p class="font-mono text-[11px] text-[#8b8fa3]">Landungsbrücken, Brücke 1</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Station 5: La Cocina -->
+          <div class="card overflow-hidden" data-station="5">
+            <div class="md:flex">
+              <div class="md:w-2/5 h-48 md:h-auto relative">
+                <img src="/photos/LaCocina-Hamburg-11-683x1024-1.jpg" alt="La Cocina Hamburg" class="w-full h-full object-cover" loading="lazy" />
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-[#E53935] flex items-center justify-center shadow-md">
+                  <span class="text-white font-['Space_Grotesk',sans-serif] font-semibold text-sm">5</span>
+                </div>
+              </div>
+              <div class="p-6 md:w-3/5 space-y-2">
+                <p class="font-mono text-[#c2703e] text-sm">19:00</p>
+                <h3 class="font-['Space_Grotesk',sans-serif] text-xl text-[#1a1d2e]">Küchenparty</h3>
+                <p class="text-sm text-[#4a4d5e] leading-relaxed">La Cocina — gemeinsam kochen, essen, trinken. Keine Zuschauer, alle machen mit.</p>
+                <p class="font-mono text-[11px] text-[#8b8fa3]">La Cocina, Ludwig-Erhard-Straße 37</p>
+              </div>
             </div>
           </div>
 
         </div>
-        <!-- Progress bar -->
-        <div class="absolute bottom-0 left-0 right-0 z-30 h-[2px] bg-[#1a1d2e]/[0.06]">
-          <div id="timeline-progress" class="h-full bg-[#c2703e]/50 w-0 transition-none"></div>
+
+        <!-- Fixed Map -->
+        <div class="lg:w-[420px] flex-shrink-0">
+          <div class="lg:sticky lg:top-8">
+            <div class="card overflow-hidden">
+              <div id="map" class="w-full h-[350px] lg:h-[500px]"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -368,7 +208,7 @@ import '../styles/global.css';
   <!-- ==================== RSVP ==================== -->
   <section class="section py-24 md:py-32" id="rsvp">
     <div class="max-w-xl mx-auto space-y-8">
-      <div class="fade-up text-center">
+      <div class="text-center">
         <div class="accent-line mb-6 mx-auto"></div>
         <p class="mono-label mb-3">Zusage</p>
         <p class="text-xl font-light text-[#4a4d5e]">
@@ -376,7 +216,7 @@ import '../styles/global.css';
         </p>
       </div>
 
-      <form id="rsvp-form" class="fade-up space-y-4">
+      <form id="rsvp-form" class="space-y-4">
         <input type="text" name="Name" placeholder="Name" required class="form-input" />
         <input type="email" name="Email" placeholder="E-Mail" required class="form-input" />
         <select name="Dabei" required class="form-input">
@@ -446,7 +286,7 @@ import '../styles/global.css';
   <!-- ==================== PLAYLISTS ==================== -->
   <section class="section py-24 md:py-32">
     <div class="max-w-3xl mx-auto space-y-12">
-      <div class="fade-up">
+      <div>
         <div class="accent-line mb-6"></div>
         <p class="mono-label mb-3">Playlists</p>
         <p class="text-xl font-light text-[#4a4d5e]">
@@ -504,13 +344,13 @@ import '../styles/global.css';
   <!-- ==================== FAQ ==================== -->
   <section class="section py-24 md:py-32" id="faq">
     <div class="max-w-3xl mx-auto">
-      <div class="fade-up">
+      <div>
         <div class="accent-line mb-6"></div>
         <p class="mono-label mb-3">Fragen & Antworten</p>
         <h2 class="font-['Space_Grotesk',sans-serif] text-3xl md:text-4xl text-[#1a1d2e] mb-12">FAQ</h2>
       </div>
 
-      <div class="space-y-0 fade-up">
+      <div class="space-y-0">
         <!-- Dresscode -->
         <details class="group border-b border-[#1a1d2e]/[0.06]">
           <summary class="flex items-center justify-between py-5 cursor-pointer select-none">
@@ -562,7 +402,7 @@ import '../styles/global.css';
             <span class="font-mono text-[#8b8fa3] text-sm transition-transform duration-300 group-open:rotate-45">+</span>
           </summary>
           <div class="pb-5 text-sm text-[#4a4d5e] leading-relaxed">
-            Klar! Wer nicht schon um 15 Uhr an der Strandperle sein kann, kommt einfach um <strong>17:00 Uhr zum Anleger Övelgönne</strong>. Die Barkasse legt pünktlich ab — bitte seid ein paar Minuten vorher da. Vermerkt das bitte kurz im RSVP-Formular unter „Nachricht“.
+            Klar! Wer nicht schon um 15 Uhr an der Strandperle sein kann, kommt einfach um <strong>17:00 Uhr zum Anleger Övelgönne</strong>. Die Barkasse legt pünktlich ab — bitte seid ein paar Minuten vorher da. Vermerkt das bitte kurz im RSVP-Formular unter „Nachricht".
           </div>
         </details>
 
